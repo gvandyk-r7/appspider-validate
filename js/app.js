@@ -169,6 +169,17 @@ AppSpiderValidateApp.controller('AttackController', ['$scope', Angular.controlle
 AppSpiderValidateApp.controller('PanelController', [Angular.controller.PanelController]);
 AppSpiderValidateApp.controller('ButtonController', ['$http', Angular.controller.ButtonController]);
 AppSpiderValidateApp.directive('prettifyheader', [Angular.directive.prettifyheader]);
+AppSpiderValidateApp.directive('attackRequestPayload', [function(){
+    return {
+        require: 'ngModel',
+        link: function(scope, elem, attrs, ngModel){
+            ngModel.$formatters.push(function(value){
+            	return angular.toJson(value, true);
+            });
+        }
+    };
+}]);
+
 
 chrome.storage.onChanged.addListener(function(attacks, namespace){
     for (var attack_id in attacks) {
